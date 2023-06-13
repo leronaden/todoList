@@ -2,8 +2,7 @@ import React, {ChangeEvent, useState, KeyboardEvent} from 'react';
 import {FilterValuesType} from './App';
 import {AddItemForm} from "./AddItemForm";
 import EditableSpan from "./EditableSpan";
-import {Button, Checkbox, IconButton, ThemeProvider, useThemeProps} from "@mui/material";
-import {ThemeOptions} from '@mui/material/styles';
+import {Button, Checkbox, IconButton} from "@mui/material";
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
 
@@ -28,6 +27,7 @@ type PropsType = {
     changeTodoListTitle: (title: string, todolistId: string) => void
 }
 
+
 export function Todolist(props: PropsType) {
     const addTask = (title: string) => {
 
@@ -48,6 +48,7 @@ export function Todolist(props: PropsType) {
             <IconButton onClick={removeTodolist}
                         size={"medium"}
                         color={"primary"}
+
             >
                 <RemoveCircleIcon/>
             </IconButton>
@@ -65,30 +66,25 @@ export function Todolist(props: PropsType) {
                     }
                     const changeTaskTitle = (newTitle: string) => props.changeTaskTitle(t.id, newTitle, props.todolistId)
 
-                    return <li key={t.id} className={t.isDone ? "is-done" : ""}>
-
-
-                        <Checkbox onChange={onChangeHandler}
-                                    checked={t.isDone} />
-
-
-                        <EditableSpan title={t.title} changeTitle={changeTaskTitle}/>
-
-
-
-                        <IconButton onClick={onClickHandler}
-                                    size={"small"}
-                                    color={"primary"}
-                        >
-                            <RemoveCircleIcon/>
-                        </IconButton>
-
-                    </li>
+                    return (
+                        <li key={t.id} className={t.isDone ? "is-done" : ""}>
+                            <Checkbox
+                                onChange={onChangeHandler}
+                                checked={t.isDone}
+                                color="primary"
+                            />
+                            <span style={{textDecoration: t.isDone ? "line-through" : "none"}}>
+                  <EditableSpan title={t.title} changeTitle={changeTaskTitle}/>
+                </span>
+                            <IconButton onClick={onClickHandler} size={"small"} color={"primary"}>
+                                <RemoveCircleIcon/>
+                            </IconButton>
+                        </li>
+                    )
                 })
             }
         </ul>
         <div>
-
             <Button
                 sx={{mr: "2px"}}
                 variant="contained"

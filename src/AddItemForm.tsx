@@ -52,7 +52,7 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
             >
                 ADD
             </Button>
-            {error && <div className="error-message">{error}</div>}
+            {error && <div className="error-message" style={{ color: "red" }}>{error}</div>}
         </div>
     );
 };
